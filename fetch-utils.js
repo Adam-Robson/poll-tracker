@@ -8,10 +8,10 @@ export async function createPoll(poll){
     if (resp.error) {
         throw new Error(resp.error.message);
     } 
-// return checkError(response);
     return resp.data;  
 }
-export async function getpolls() {
+
+export async function getPolls() {
     const resp = await client.from('polls').select('*');
     if (resp.error) {
         throw new Error(resp.error.message);

@@ -6,8 +6,8 @@ export function renderPoll(poll) {
     const answerTwoEl = document.createElement('p');
     
     pollQuestionEl.textContent = poll.question;
-    answerOneEl.textContent = `${poll.optionA} - ${poll.votesA} votes`;
-    answerTwoEl.textContent = `${poll.optionB} - ${poll.votesB} votes`;
+    answerOneEl.textContent = `${poll.optionA} | ${poll.votesA}`;
+    answerTwoEl.textContent = `${poll.optionB} | ${poll.votesB}`;
    
     container.append(pollQuestionEl, answerOneEl, answerTwoEl);
 
