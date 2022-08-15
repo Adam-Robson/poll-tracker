@@ -38,15 +38,17 @@
                 <button id="publish-button">PUBLISH</button>
             </div>
         </section>
-        <section id="input">
-            <label for="question-input">Type question for next poll here:</label>
-                <input type="text" id="question-input">
-            <label for="answer-a-input">Type Answer A for next poll here:</label>
-                <input type="text" id="answer-a-input">
-            <label for="answer-b-input">Type Answer B for next poll here:</label>
-                <input type="text" id="answer-b-input">
-            <button id="add-poll-button">ADD POLL</button>
-        </section>
+        <form id="create-form">
+            <section id="input">
+                <label for="question-input">Type question for next poll here:</label>
+                    <input type="text" name="question-input" id="question-input">
+                <label for="answer-a-input">Type Answer A for next poll here:</label>
+                    <input type="text" name="answer-a-input" id="answer-a-input">
+                <label for="answer-b-input">Type Answer B for next poll here:</label>
+                    <input type="text" id="answer-b-input" name="answer-b-input" >
+                <button id="add-poll-button">ADD POLL</button>
+            </section>
+        </form>
         <section id="past">
             <div id="past-poll-results">PAST POLL RESULTS</div>
         </section>

@@ -2,16 +2,14 @@
 import { createPoll, getPolls } from './fetch-utils.js';
 import { renderPoll } from './render-utils.js';
 
-const questionInput = document.getElementById('question-input');
-const answerAInput = document.getElementById('answer-a-input');
-const answerBInput = document.getElementById('answer-b-input');
-const addPollButton = document.getElementById('add-poll-button');
+
+
 let currentPollQuestion = document.getElementById('current-poll-question');
 const addAButton = document.getElementById('add-a-button');
 const addBButton = document.getElementById('add-b-button');
 const subAButton = document.getElementById('sub-a-button');
 const subBButton = document.getElementById('sub-b-button');
-
+const createForm = document.getElementById('create-form');
 const publishButton = document.getElementById('publish-button');
 let pastPollResults = document.getElementById('past-poll-results');
 
@@ -23,11 +21,17 @@ let optionB = '';
 let votesA = 0;
 let votesB = 0;
 
-addPollButton.addEventListener('click', () => {
-    question = questionInput.value;
-    optionA = answerAInput.value;
-    optionB = answerBInput.value;
-    displayCurrentPoll();  
+createForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(createForm);
+    
+    question = data.get('question-input');
+    optionA = data.get ('answer-a-input');
+    optionB = data.get ('answer-b-input');
+     
+    createForm.reset(); 
+
+    displayCurrentPoll();
 });
 
 addAButton.addEventListener('click', () => {
@@ -77,11 +81,12 @@ function displayCurrentPoll() {
     };
     const renderedPoll = renderPoll(nuPoll);    
     currentPollQuestion.append(renderedPoll);
-    questionInput.value = '';
+    
 }
 
 async function displayAllPolls() {
     const allPolls = await getPolls();
+    pastPollResults.textContent = '';
     for (let poll of allPolls) {
         const container = renderPoll(poll);
         pastPollResults.append(container);
