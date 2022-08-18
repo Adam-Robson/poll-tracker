@@ -27,6 +27,12 @@ createForm.addEventListener('submit', (e) => {
      
     createForm.reset(); 
 
+    addAButton.disabled = false;
+    addBButton.disabled = false;
+    subAButton.disabled = false;
+    subBButton.disabled = false;
+    publishButton.disabled = false;
+
     displayCurrentPoll();
 });
 
@@ -52,19 +58,13 @@ subBButton.addEventListener('click', () => {
   
 publishButton.addEventListener('click', async() => {
     const poll = {
-        question: question,
-        optionA: optionA,
-        optionB: optionB,
-        votesA: votesA,
-        votesB: votesB,
+        question: `${question}`,
+        optionA: `${optionA}`,
+        optionB: `${optionB}`,
+        votesA: `${votesA}`,
+        votesB: `${votesB}`,
     };
-    
     await createPoll(poll);
-    let question = '';
-    let optionA = '';
-    let optionB = '';
-    let votesA = 0;
-    let votesB = 0;
     displayAllPolls();
     displayCurrentPoll();
 });
@@ -72,6 +72,7 @@ publishButton.addEventListener('click', async() => {
 function displayCurrentPoll() {
     
     currentPollQuestion.textContent = '';
+    
     const nuPoll = {
         question: question,
         optionA: optionA,
@@ -79,18 +80,18 @@ function displayCurrentPoll() {
         votesA: votesA,
         votesB: votesB,
     };
+
     const renderedPoll = renderPoll(nuPoll);    
-    currentPollQuestion.append(renderedPoll);
-    
+    currentPollQuestion.append(renderedPoll);    
 }
 
 async function displayAllPolls() {
     const allPolls = await getPolls();
     pastPollResults.textContent = '';
+    
     for (let poll of allPolls) {
         const container = renderPoll(poll);
-        pastPollResults.append(container);
-       
+        pastPollResults.append(container);  
     }
 }
             
