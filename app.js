@@ -2,8 +2,6 @@
 import { createPoll, getPolls } from './fetch-utils.js';
 import { renderPoll } from './render-utils.js';
 
-
-
 let currentPollQuestion = document.getElementById('current-poll-question');
 const addAButton = document.getElementById('add-a-button');
 const addBButton = document.getElementById('add-b-button');
@@ -12,8 +10,6 @@ const subBButton = document.getElementById('sub-b-button');
 const createForm = document.getElementById('create-form');
 const publishButton = document.getElementById('publish-button');
 let pastPollResults = document.getElementById('past-poll-results');
-
-//STATE 
 
 let question = '';
 let optionA = '';
@@ -64,9 +60,13 @@ publishButton.addEventListener('click', async() => {
     };
     
     await createPoll(poll);
-
+    let question = '';
+    let optionA = '';
+    let optionB = '';
+    let votesA = 0;
+    let votesB = 0;
     displayAllPolls();
-   
+    displayCurrentPoll();
 });
 
 function displayCurrentPoll() {
