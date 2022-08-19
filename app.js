@@ -64,8 +64,15 @@ publishButton.addEventListener('click', async() => {
         votesA: `${votesA}`,
         votesB: `${votesB}`,
     };
+    
+    question = '';
+    optionA = '';
+    optionB = '';
+    votesA = 0;
+    votesB = 0;
+
     await createPoll(poll);
-    displayAllPolls();
+    await displayAllPolls();
     displayCurrentPoll();
 });
 
@@ -94,5 +101,6 @@ async function displayAllPolls() {
         pastPollResults.append(container);  
     }
 }
-            
+
+await displayAllPolls();       
 displayCurrentPoll();
