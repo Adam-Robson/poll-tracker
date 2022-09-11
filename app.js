@@ -12,18 +12,18 @@ const publishButton = document.getElementById('publish-button');
 let pastPollResults = document.getElementById('past-poll-results');
 
 let question = '';
-let optionA = '';
-let optionB = '';
-let votesA = 0;
-let votesB = 0;
+let answerA = '';
+let answerB = '';
+let answerACount = 0;
+let answerBCount = 0;
 
 createForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = new FormData(createForm);
     
     question = data.get('question-input');
-    optionA = data.get ('answer-a-input');
-    optionB = data.get ('answer-b-input');
+    answerA = data.get ('answer-a-input');
+    answerB = data.get ('answer-b-input');
      
     createForm.reset(); 
 
@@ -37,39 +37,39 @@ createForm.addEventListener('submit', (e) => {
 });
 
 addAButton.addEventListener('click', () => {
-    votesA++;
+    answerACount++;
     displayCurrentPoll();
 });
 
 addBButton.addEventListener('click', () => {
-    votesB++;
+    answerBCount++;
     displayCurrentPoll();
 });
 
 subAButton.addEventListener('click', () => {
-    votesA--;
+    answerACount--;
     displayCurrentPoll();
 });
 
 subBButton.addEventListener('click', () => {
-    votesB--;
+    answerBCount--;
     displayCurrentPoll();
 });
   
 publishButton.addEventListener('click', async() => {
     const poll = {
         question: `${question}`,
-        optionA: `${optionA}`,
-        optionB: `${optionB}`,
-        votesA: `${votesA}`,
-        votesB: `${votesB}`,
+        answerA: `${answerA}`,
+        answerB: `${answerB}`,
+        answerACount: `${answerACount}`,
+        answerBCount: `${answerBCount}`,
     };
     
     question = '';
-    optionA = '';
-    optionB = '';
-    votesA = 0;
-    votesB = 0;
+    answerA = '';
+    answerB = '';
+    answerACount = 0;
+    answerBCount = 0;
 
     await createPoll(poll);
     await displayAllPolls();
@@ -82,10 +82,10 @@ function displayCurrentPoll() {
     
     const nuPoll = {
         question: question,
-        optionA: optionA,
-        optionB: optionB,
-        votesA: votesA,
-        votesB: votesB,
+        answerA: answerA,
+        answerB: answerB,
+        answerACount: answerACount,
+        answerBCount: answerBCount,
     };
 
     const renderedPoll = renderPoll(nuPoll);    
