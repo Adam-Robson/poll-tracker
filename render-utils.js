@@ -24,7 +24,7 @@ export function renderPoll(newPoll) {
 }
 
 export function renderAllPolls(allPolls) {
-  const pastPollsEl = document.getElementById('past-polls');
+  const pastPollsEl = document.createElement('div');
   const pastPollsContainer = document.createElement('div');
 
   const pollRecordIdEl = document.createElement('p');
@@ -35,12 +35,12 @@ export function renderAllPolls(allPolls) {
   const pollRecordAnswerBCountEl = document.createElement('span');
 
   for (let poll of allPolls) {
-    pollRecordIdEl.textContent = `${poll.id}`;
-    pollRecordQuestionEl.textContent = `${poll.question}`;
-    pollRecordAnswerAEl.textContent = `${poll.answerA}`;
-    pollRecordAnswerBEl.textContent = `${poll.answerB}`;
-    pollRecordAnswerACountEl.textContent = `${poll.answerACount}`;
-    pollRecordAnswerBCountEl.textContent = `${poll.answerBCount}`;
+    pollRecordIdEl.textContent = `id: ${poll.id}`;
+    pollRecordQuestionEl.textContent = `question: ${poll.question}`;
+    pollRecordAnswerAEl.textContent = `answer a: ${poll.answerA}`;
+    pollRecordAnswerBEl.textContent = `answer b: ${poll.answerB}`;
+    pollRecordAnswerACountEl.textContent = `answer a count: ${poll.answerACount}`;
+    pollRecordAnswerBCountEl.textContent = `answer b count: ${poll.answerBCount}`;
 
     pastPollsContainer.append(
       pollRecordIdEl,
@@ -52,7 +52,9 @@ export function renderAllPolls(allPolls) {
     );
   }
 
-  return pastPollsEl.append(
+  pastPollsEl.append(
     pastPollsContainer
   );
+
+  return pastPollsEl;
 }

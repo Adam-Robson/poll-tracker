@@ -1,6 +1,6 @@
 // Import Functions
-// import { createPollRecord, getAllPollRecords } from './fetch-utils.js';
-import { renderPoll } from './render-utils.js';
+import { createPollRecord, getAllPollRecords } from './fetch-utils.js';
+import { renderAllPolls, renderPoll } from './render-utils.js';
 
 /** DOM Elements */
 let activePollQuestion = document.getElementById('active-poll-question');
@@ -12,7 +12,7 @@ const addBButton = document.getElementById('add-b-button');
 const subAButton = document.getElementById('sub-a-button');
 const subBButton = document.getElementById('sub-b-button');
 const addPollForm = document.getElementById('add-poll-form');
-// const publishButton = document.getElementById('publish-button');
+const publishButton = document.getElementById('publish-button');
 
 /** Initialize State */
 let activePollQuestionText = '';
@@ -78,23 +78,29 @@ function displayCurrentPoll() {
   return activePollQuestion;
 }
 
-// publishButton.addEventListener('click', async () => {
-//   const pollRecord = {
-//     question: `${activePollQuestionText}`,
-//     answerA: `${answer_a}`,
-//     answerB: `${answer_b}`,
-//     answerACount: `${a_count}`,
-//     answerBCount: `${b_count}`,
-//   };
+publishButton.addEventListener('click', async () => {
+  const pollRecord = {
+    question: `${activePollQuestionText}`,
+    answerA: `${answer_a}`,
+    answerB: `${answer_b}`,
+    answerACount: `${a_count}`,
+    answerBCount: `${b_count}`,
+  };
 
-//   await createPollRecord(pollRecord);
-//   displayAllPolls();
-// });
+  const res = await createPollRecord(pollRecord);
+  await displayAllPolls();
+  return res;
+});
 
-// export async function displayAllPolls() {
-//   const allPollRecords = await getAllPollRecords();
+async function displayAllPolls() {
+  const pastPollsEl = document.getElementById('past-polls');
 
-//   const polls = renderAllPolls(allPollRecords);
-//   pastPollResults.append(polls);
-//   return pastPollResults;
-// }
+  const newRecords = await getAllPollRecords();
+
+  const pollsEl = renderAllPolls(newRecords);
+  pastPollsEl.append(pollsEl);
+
+  return pastPollsEl;
+}
+
+displayAllPolls();
