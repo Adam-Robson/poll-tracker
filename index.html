@@ -4,62 +4,61 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <link rel="icon" type="image/x-icon" href="/assets/alchemy-favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="./styles.css" />
-    <title>Poll</title>
+    <title>Make A Poll | Take A Poll</title>
 </head>
 
 <body>
-    <header>
-        <img src="/assets/icon.png">
-        <h1>Make a Poll<br>Take a Poll</h1>
-        
-    </header>
+  <header>
+    <img src="/assets/icon.png" />
+      <h1>Make a Poll<br>Take a Poll</h1>
+  </header>
+  <main>
+    <h2>Make a Poll<br />Take a Poll<hr /></h2>
+      <section id="active-poll-section">
+        <div id="active-poll-question"></div>
 
-    <main>
-        <h2>Make a Poll<br>Take a Poll<hr></h2>
-        <section id="current">
-            <div id="current-poll-question" ></div>
-           
-                <button id="add-a-button" disabled>A+</button>
-                <button id="sub-a-button" disabled>A-</button>
-                   
-              
-                    <button id="add-b-button" disabled>B+</button>
-                    <button id="sub-b-button" disabled>B-</button>
-                   
-            
-            <div>
-                <button id="publish-button" disabled>PUBLISH</button>
-            </div>
-        </section>
-        <form id="create-form">
-            <section id="input">
-                <label for="question-input">Type question for next poll here:</label>
-                    <input type="text" name="question-input" id="question-input">
-                <label for="answer-a-input">Type Answer A for next poll here:</label>
-                    <input type="text" name="answer-a-input" id="answer-a-input">
-                <label for="answer-b-input">Type Answer B for next poll here:</label>
-                    <input type="text" id="answer-b-input" name="answer-b-input" >
-                <button id="add-poll-button">ADD POLL</button>
-            </section>
-        </form>
-        <section id="past">
-            <div id="past-poll-results">PAST POLL RESULTS</div>
-        </section>
-    </main>
+        <p id="active-answer-a"></p>
+        <button id="add-a-button">a+</button>
+        <button id="sub-a-button">a-</button>
+        <span id="active-a-count"></span>
 
-    <footer>&copy;2022 Software Developer</footer>
+        <p id="active-answer-b"></p>
+        <button id="add-b-button">b+</button>
+        <button id="sub-b-button">b-</button>
+        <span id="active-b-count"></span>
 
+        <div>
+          <button id="publish-button">Publish</button>
+        </div>
+      </section>
 
+    <form id="add-poll-form">
+      <section id="input-section">
+        <label for="question-input">Type question for next poll here:</label>
+          <input type="text" name="question-input" id="question-input" />
 
+        <label for="answer-a-input">Type Answer A for next poll here:</label>
+          <input type="text" name="answer-a-input" id="answer-a-input" />
 
-   
-    <script type="module" src="./app.js"></script>
+        <label for="answer-b-input">Type Answer B for next poll here:</label>
+          <input type="text" id="answer-b-input" name="answer-b-input" />
+
+        <button id="add-poll-button">ADD POLL</button>
+      </section>
+    </form>
+
+    <section id="past">
+      <h3 id="past-poll-results">PAST POLL RESULTS</h3>
+      <div id="past-polls"></div>
+    </section>
+
+  </main>
+
+  <footer>&copy;2022 Software Developer</footer>
+  <script type="module" src="./app.js"></script>
 </body>
-
 </html>

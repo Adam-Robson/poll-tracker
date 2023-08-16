@@ -1,106 +1,106 @@
-// import functions and grab DOM elements
-import { createPoll, getPolls } from './fetch-utils.js';
-import { renderPoll } from './render-utils.js';
+// Import Functions
+import { createPollRecord, getAllPollRecords } from './fetch-utils.js';
+import { renderAllPolls, renderPoll } from './render-utils.js';
 
-let currentPollQuestion = document.getElementById('current-poll-question');
+/** DOM Elements */
+let activePollQuestion = document.getElementById('active-poll-question');
+let activeAnswerA = document.getElementById('active-answer-a');
+let activeAnswerB = document.getElementById('active-answer-b');
+// let pastPollResults = document.getElementById('past-poll-results');
 const addAButton = document.getElementById('add-a-button');
 const addBButton = document.getElementById('add-b-button');
 const subAButton = document.getElementById('sub-a-button');
 const subBButton = document.getElementById('sub-b-button');
-const createForm = document.getElementById('create-form');
+const addPollForm = document.getElementById('add-poll-form');
 const publishButton = document.getElementById('publish-button');
-let pastPollResults = document.getElementById('past-poll-results');
 
-let question = '';
-let answerA = '';
-let answerB = '';
-let answerACount = 0;
-let answerBCount = 0;
+/** Initialize State */
+let activePollQuestionText = '';
 
-createForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = new FormData(createForm);
-    
-    question = data.get('question-input');
-    answerA = data.get ('answer-a-input');
-    answerB = data.get ('answer-b-input');
-     
-    createForm.reset(); 
+let answer_a = '';
+let answer_b = '';
+let a_count = 0;
+let b_count = 0;
 
-    addAButton.disabled = false;
-    addBButton.disabled = false;
-    subAButton.disabled = false;
-    subBButton.disabled = false;
-    publishButton.disabled = false;
+addPollForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const data = new FormData(addPollForm);
 
-    displayCurrentPoll();
+  activePollQuestionText = data.get('question-input');
+  answer_a = data.get('answer-a-input');
+  answer_b = data.get('answer-b-input');
+
+  activePollQuestion.textContent = activePollQuestionText;
+  activeAnswerA.textContent = answer_a;
+  activeAnswerB.textContent = answer_b;
+  addPollForm.reset();
+
+  displayCurrentPoll();
 });
 
 addAButton.addEventListener('click', () => {
-    answerACount++;
-    displayCurrentPoll();
+  a_count++;
+  displayCurrentPoll();
 });
 
 addBButton.addEventListener('click', () => {
-    answerBCount++;
-    displayCurrentPoll();
+  b_count++;
+  displayCurrentPoll();
 });
 
 subAButton.addEventListener('click', () => {
-    answerACount--;
-    displayCurrentPoll();
+  a_count--;
+  displayCurrentPoll();
 });
 
 subBButton.addEventListener('click', () => {
-    answerBCount--;
-    displayCurrentPoll();
-});
-  
-publishButton.addEventListener('click', async() => {
-    const poll = {
-        question: `${question}`,
-        answerA: `${answerA}`,
-        answerB: `${answerB}`,
-        answerACount: `${answerACount}`,
-        answerBCount: `${answerBCount}`,
-    };
-    
-    question = '';
-    answerA = '';
-    answerB = '';
-    answerACount = 0;
-    answerBCount = 0;
-
-    await createPoll(poll);
-    await displayAllPolls();
-    displayCurrentPoll();
+  b_count--;
+  displayCurrentPoll();
 });
 
 function displayCurrentPoll() {
-    
-    currentPollQuestion.textContent = '';
-    
-    const nuPoll = {
-        question: question,
-        answerA: answerA,
-        answerB: answerB,
-        answerACount: answerACount,
-        answerBCount: answerBCount,
-    };
 
-    const renderedPoll = renderPoll(nuPoll);    
-    currentPollQuestion.append(renderedPoll);    
+  activePollQuestion.textContent = '';
+  activeAnswerA.textContent = '';
+  activeAnswerB.textContent = '';
+
+  const activePoll = {
+    question: activePollQuestionText,
+    answerA: answer_a,
+    answerB: answer_b,
+    answerACount: a_count,
+    answerBCount: b_count,
+  };
+
+  const poll = renderPoll(activePoll);
+  activePollQuestion.append(poll);
+
+  return activePollQuestion;
 }
+
+publishButton.addEventListener('click', async () => {
+  const pollRecord = {
+    question: `${activePollQuestionText}`,
+    answerA: `${answer_a}`,
+    answerB: `${answer_b}`,
+    answerACount: `${a_count}`,
+    answerBCount: `${b_count}`,
+  };
+
+  const res = await createPollRecord(pollRecord);
+  await displayAllPolls();
+  return res;
+});
 
 async function displayAllPolls() {
-    const allPolls = await getPolls();
-    pastPollResults.textContent = '';
-    
-    for (let poll of allPolls) {
-        const container = renderPoll(poll);
-        pastPollResults.append(container);  
-    }
+  const pastPollsEl = document.getElementById('past-polls');
+
+  const newRecords = await getAllPollRecords();
+
+  const pollsEl = renderAllPolls(newRecords);
+  pastPollsEl.append(pollsEl);
+
+  return pastPollsEl;
 }
 
-await displayAllPolls();       
-displayCurrentPoll();
+displayAllPolls();
