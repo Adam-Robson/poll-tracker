@@ -23,12 +23,36 @@ export function renderPoll(newPoll) {
   return newPollContainer;
 }
 
-export function renderAllPolls(pollsArray) {
-  const pastPolls = document.getElementById('div');
+export function renderAllPolls(allPolls) {
+  const pastPollsEl = document.getElementById('past-polls');
+  const pastPollsContainer = document.createElement('div');
 
-  for (let poll of pollsArray) {
-    const pollItem = renderPoll(poll);
-    pastPolls.append(pollItem);
+  const pollRecordIdEl = document.createElement('p');
+  const pollRecordQuestionEl = document.createElement('p');
+  const pollRecordAnswerAEl = document.createElement('p');
+  const pollRecordAnswerBEl = document.createElement('p');
+  const pollRecordAnswerACountEl = document.createElement('span');
+  const pollRecordAnswerBCountEl = document.createElement('span');
+
+  for (let poll of allPolls) {
+    pollRecordIdEl.textContent = `${poll.id}`;
+    pollRecordQuestionEl.textContent = `${poll.question}`;
+    pollRecordAnswerAEl.textContent = `${poll.answerA}`;
+    pollRecordAnswerBEl.textContent = `${poll.answerB}`;
+    pollRecordAnswerACountEl.textContent = `${poll.answerACount}`;
+    pollRecordAnswerBCountEl.textContent = `${poll.answerBCount}`;
+
+    pastPollsContainer.append(
+      pollRecordIdEl,
+      pollRecordQuestionEl,
+      pollRecordAnswerAEl,
+      pollRecordAnswerACountEl,
+      pollRecordAnswerBEl,
+      pollRecordAnswerBCountEl
+    );
   }
 
+  return pastPollsEl.append(
+    pastPollsContainer
+  );
 }

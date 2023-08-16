@@ -1,18 +1,18 @@
 // Import Functions
-import { createPollRecord, getAllPollRecords } from './fetch-utils.js';
-import { renderPoll, renderAllPolls } from './render-utils.js';
+// import { createPollRecord, getAllPollRecords } from './fetch-utils.js';
+import { renderPoll } from './render-utils.js';
 
 /** DOM Elements */
 let activePollQuestion = document.getElementById('active-poll-question');
 let activeAnswerA = document.getElementById('active-answer-a');
 let activeAnswerB = document.getElementById('active-answer-b');
-let pastPollResults = document.getElementById('past-poll-results');
+// let pastPollResults = document.getElementById('past-poll-results');
 const addAButton = document.getElementById('add-a-button');
 const addBButton = document.getElementById('add-b-button');
 const subAButton = document.getElementById('sub-a-button');
 const subBButton = document.getElementById('sub-b-button');
 const addPollForm = document.getElementById('add-poll-form');
-const publishButton = document.getElementById('publish-button');
+// const publishButton = document.getElementById('publish-button');
 
 /** Initialize State */
 let activePollQuestionText = '';
@@ -35,7 +35,6 @@ addPollForm.addEventListener('submit', (e) => {
   activeAnswerB.textContent = answer_b;
   addPollForm.reset();
 
-  enableButtons();
   displayCurrentPoll();
 });
 
@@ -59,23 +58,6 @@ subBButton.addEventListener('click', () => {
   displayCurrentPoll();
 });
 
-function resetState() {
-  activePollQuestionText = '';
-  answer_a = '';
-  answer_b = '';
-  a_count = 0;
-  b_count = 0;
-  addPollForm.reset();
-}
-
-function enableButtons() {
-  addAButton.disabled = false;
-  addBButton.disabled = false;
-  subAButton.disabled = false;
-  subBButton.disabled = false;
-  publishButton.disabled = false;
-}
-
 function displayCurrentPoll() {
 
   activePollQuestion.textContent = '';
@@ -96,24 +78,23 @@ function displayCurrentPoll() {
   return activePollQuestion;
 }
 
-publishButton.addEventListener('click', async () => {
-  const pollRecord = {
-    question: `${activePollQuestionText}`,
-    answerA: `${answer_a}`,
-    answerB: `${answer_b}`,
-    answerACount: `${a_count}`,
-    answerBCount: `${b_count}`,
-  };
+// publishButton.addEventListener('click', async () => {
+//   const pollRecord = {
+//     question: `${activePollQuestionText}`,
+//     answerA: `${answer_a}`,
+//     answerB: `${answer_b}`,
+//     answerACount: `${a_count}`,
+//     answerBCount: `${b_count}`,
+//   };
 
-  await createPollRecord(pollRecord);
-  displayAllPolls();
-  resetState();
-});
+//   await createPollRecord(pollRecord);
+//   displayAllPolls();
+// });
 
-export async function displayAllPolls() {
-  const allPollRecords = await getAllPollRecords();
+// export async function displayAllPolls() {
+//   const allPollRecords = await getAllPollRecords();
 
-  const polls = renderAllPolls(allPollRecords);
-  pastPollResults.append(polls);
-  return pastPollResults;
-}
+//   const polls = renderAllPolls(allPollRecords);
+//   pastPollResults.append(polls);
+//   return pastPollResults;
+// }

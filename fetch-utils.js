@@ -4,19 +4,23 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export async function createPollRecord(poll) {
-  const { data, error } = await client
-    .from('polls')
-    .insert(poll);
-    
-  if (error) throw new Error(error.message); 
-  return data;  
+  const { data, error } = await client.from('polls').insert(poll);
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error creating record:', error.message);
+  }
+  // eslint-disable-next-line no-console
+  console.log('Created record:', data);
+  return data;
 }
 
 export async function getAllPollRecords() {
-  const { data, error } = await client
-    .from('polls')
-    .select('*');
-    
-  if (error) throw new Error(error.message); 
-  return data; 
+  const { data, error } = await client.from('polls').select('*');
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error fetching all poll records:', error.message);
+  }
+  // eslint-disable-next-line no-console
+  console.log('All poll records returned:', data);
+  return data;
 }

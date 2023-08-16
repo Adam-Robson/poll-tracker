@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <link rel="icon" type="image/x-icon" href="/assets/alchemy-favicon.png" />
     <link rel="stylesheet" href="./styles.css" />
     <title>Make A Poll | Take A Poll</title>
@@ -22,17 +22,17 @@
         <div id="active-poll-question"></div>
 
         <p id="active-answer-a"></p>
-        <button id="add-a-button" disabled>a+</button>
-        <button id="sub-a-button" disabled>a-</button>
+        <button id="add-a-button">a+</button>
+        <button id="sub-a-button">a-</button>
         <span id="active-a-count"></span>
 
         <p id="active-answer-b"></p>
-        <button id="add-b-button" disabled>b+</button>
-        <button id="sub-b-button" disabled>b-</button>
+        <button id="add-b-button">b+</button>
+        <button id="sub-b-button">b-</button>
         <span id="active-b-count"></span>
 
         <div>
-          <button id="publish-button" disabled>Publish</button>
+          <button id="publish-button">Publish</button>
         </div>
       </section>
 
