@@ -4,97 +4,26 @@ Review core JavaScript syntax and context through testing functions
 
 ## QUnit built-ins
 
-Our `tests.js` file has access to a new built-in, `QUnit` and we will be using
-the `QUnit.test` method which will be assigned to a `test` variable.
+The `tests.js` file has access to the built-in, `QUnit`.
 
-We will also be using the `expect` built-in that will be passed to our testing function
+Use the `QUnit.test` method, which will be assigned to a `test` variable.
 
-## The test
+Pass `expect` to the testing function
 
-The structure of a test is very similar to the use of `addEventListener`!
+## Functions & Tests
 
-```js
-// only once at top of file:
-const test = QUnit.test;
+Write sound functions with test coverage by following these steps:
 
-// Each test case
-test('test name', (expect) => {
-
-});
-```
-
-Part | Purpose
----|---
-`test` | Built-in QUnit testing method
-`'test name'` | Descriptive test name
-`(expect) => {...}` | Function (arrow function) that will be called _by qUnit_ to run the test
-
-## Test setup
-
-```js
-test('demo: adds two numbers', (expect) => {
-    //Arrange
-    // Set up your arguments and expectations (inputs and outputs)
-    const x = 2;
-    const y = 5;
-    const expected = 7;
-
-    //Act 
-    // Call the function you're testing and set the result to a const
-    const actual = add(x, y);
-
-    //Expect
-    // Make assertions about what is expected versus the actual result
-    expect.equal(actual, expected);
-});
-```
-
-Part | Purpose
----|---
-`// Arrange` | What are the inputs and outputs?
-`// Act` | Run the function being tested!
-`// Assert` | Validate by asserting something is true
-
-## Functions
-
-Write your tests and corresponding functions _one feature at a time_. Don't stub out all the functions and imports!
-
-### Exporting a function
-
-Add the `export` keyword in front of your declared function definition:
-
-```js
-export function add(x, y) {
-    return x + y;
-}
-```
-
-### Importing function(s)
-
-Use the following syntax to import the functions from the other file:
-
-```js
-import {
-    add,
-    subtract,
-    areaOfTriangle,
-} from './functions.js';
-```
-
-## Process
-
-For each function feature:
-
-1. Read description, ask questions if not understood
-1. Identify function inputs and output
-1. Identify number of test cases required
-1. Start with first test
-1. Decide on name for test and for function
-1. Add empty test in `tests.js`
-1. Create and `export` empty function in `functions.js` and import into `tests.js`
-1. Write test:
-    - Translate inputs and outputs into "Arrange" variables, 
+1. Identify what the input and output will be of the function
+2. Pseudocode through the steps of what need to happen at a granular level
+3. Deconstruct the steps into multiple sections within the function if possible
+4. Name the test(s) and the function
+5. Add an empty test in `tests.js`
+6. Create and `export` an empty function in `file.js` and import into `tests.js`
+7. Write the test:
+    - translate inputs and outputs into the "Arrange" variables
     - write the "Act" function call
-    - modify "Assert" if needed
-1. Add parameters to function, write code to make pass
-1. Implement additional tests if required (using same function)
+    - modify the "Assert" as needed
+8. Add any parameters to the function that will be needed based on step 1
+9. Write function body line by line with care and thinking critically
+10. Check for any successful, passing tests
